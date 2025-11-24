@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自主学习与时间管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #4a5568;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subtitle {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .method-item {
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .method-item h3 {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+        
+        .method-item p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 自主学习与时间管理</h1>
+            <p class="subtitle">掌握学习方法，高效管理时间，成为更好的自己</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <h2>📚 自主学习方法</h2>
+                <div class="methods">
+                    <div class="method-item">
+                        <h3>目标导向学习法</h3>
+                        <p>设定明确的学习目标，制定详细的学习计划</p>
+                    </div>
+                    <div class="method-item">
+                        <h3>主动思考与反思</h3>
+                        <p>在学习过程中不断提问、总结和反思</p>
+                    </div>
+                    <div class="method-item">
+                        <h3>多元资源整合</h3>
+                        <p>利用书籍、在线课程、实践项目等多种资源</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>⏰ 时间管理技巧</h2>
+                <div class="methods">
+                    <div class="method-item">
+                        <h3>番茄工作法</h3>
+                        <p>25分钟专注工作，5分钟休息，提高效率</p>
+                    </div>
+                    <div class="method-item">
+                        <h3>时间块管理</h3>
+                        <p>将一天划分为不同的时间块，合理安排任务</p>
+                    </div>
+                    <div class="method-item">
+                        <h3>优先级矩阵</h3>
+                        <p>根据重要性和紧急性对任务进行排序</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>💡 实用工具推荐</h2>
+                <div class="methods">
+                    <div class="method-item">
+                        <h3>Notion</h3>
+                        <p>全能笔记工具，适合知识管理和项目规划</p>
+                    </div>
+                    <div class="method-item">
+                        <h3>Forest</h3>
+                        <p>专注计时应用，帮助培养专注习惯</p>
+                    </div>
+                    <div class="method-item">
+                        <h3>Google Calendar</h3>
+                        <p>强大的日历工具，合理安排学习计划</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2024 我的学习管理网站 | 持续更新中...</p>
+    </footer>
+</body>
+</html>
