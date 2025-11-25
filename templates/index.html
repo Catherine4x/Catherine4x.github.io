@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Carte de bienvenue -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <h1 class="display-4">Bon retour, {{ user.prenom }}! 👋</h1>
+                <p class="lead">Une autre journée productive pour apprendre</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Statistiques rapides -->
+    <div class="col-md-3 mb-4">
+        <div class="stat-card">
+            <i class="bi bi-clock-history text-primary" style="font-size: 2rem;"></i>
+            <h3 class="mt-2">{{ sessions_today }}</h3>
+            <p class="text-muted">Sessions aujourd'hui</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="stat-card">
+            <i class="bi bi-check-circle text-success" style="font-size: 2rem;"></i>
+            <h3 class="mt-2">0</h3>
+            <p class="text-muted">Jours consécutifs</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="stat-card">
+            <i class="bi bi-target text-warning" style="font-size: 2rem;"></i>
+            <h3 class="mt-2">{{ todos|length }}</h3>
+            <p class="text-muted">Tâches en cours</p>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="stat-card">
+            <i class="bi bi-star text-info" style="font-size: 2rem;"></i>
+            <h3 class="mt-2">0</h3>
+            <p class="text-muted">Récompenses</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Actions rapides -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-lightning-charge text-warning"></i>
+                    Actions Rapides
+                </h5>
+                <div class="d-grid gap-2 mt-3">
+                    <a href="{{ url_for('pomodoro') }}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-play-circle"></i> Commencer une Session
+                    </a>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="bi bi-plus-circle"></i> Ajouter une Tâche
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tâches récentes -->
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-list-check text-success"></i> Tâches Récentes</span>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-sm btn-outline-primary">Voir tout</a>
+                </h5>
+                
+                {% if todos %}
+                <div class="list-group list-group-flush mt-3">
+                    {% for task in todos %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-1">{{ task.titre }}</h6>
+                            <small class="text-muted">
+                                {{ task.date_echeance }} • 
+                                <span class="badge bg-{{ 'danger' if task.priorite == 'haute' else 'warning' if task.priorite == 'moyenne' else 'secondary' }}">
+                                    {{ task.priorite }}
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+                    <p class="mt-2">Aucune tâche en cours</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
