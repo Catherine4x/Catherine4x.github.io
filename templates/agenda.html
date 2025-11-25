@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Agenda</h1>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                <i class="bi bi-plus-circle"></i> Nouvelle Tâche
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                {% if tasks %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Description</th>
+                                <th>Échéance</th>
+                                <th>Priorité</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                            <tr>
+                                <td>
+                                    <strong>{{ task.titre }}</strong>
+                                </td>
+                                <td>{{ task.description or "Aucune description" }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'danger' if task.date_echeance[:10] == today else 'warning' }}">
+                                        {{ task.date_echeance }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-{{ 'danger' if task.priorite == 'haute' else 'warning' if task.priorite == 'moyenne' else 'secondary' }}">
+                                        {{ task.priorite }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if task.notifie %}
+                                    <span class="badge bg-success">Terminé</span>
+                                    {% else %}
+                                    <span class="badge bg-warning">En cours</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-calendar-x" style="font-size: 4rem; color: #6c757d;"></i>
+                    <h4 class="mt-3">Aucune tâche planifiée</h4>
+                    <p class="text-muted">Commencez par ajouter votre première tâche à l'agenda</p>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                        <i class="bi bi-plus-circle"></i> Ajouter une Tâche
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour ajouter une tâche -->
+<div class="modal fade" id="addTaskModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nouvelle Tâche</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="mb-3">
+                        <label for="titre" class="form-label">Titre *</label>
+                        <input type="text" class="form-control" id="titre" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="date_echeance" class="form-label">Date d'échéance *</label>
+                        <input type="datetime-local" class="form-control" id="date_echeance" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="priorite" class="form-label">Priorité</label>
+                        <select class="form-select" id="priorite">
+                            <option value="basse">Basse</option>
+                            <option value="moyenne" selected>Moyenne</option>
+                            <option value="haute">Haute</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="addTask()">Ajouter</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function addTask() {
+    const taskData = {
+        titre: document.getElementById('titre').value,
+        description: document.getElementById('description').value,
+        date_echeance: document.getElementById('date_echeance').value,
+        priorite: document.getElementById('priorite').value
+    };
+
+    fetch('/add_task', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+</script>
+{% endblock %}
