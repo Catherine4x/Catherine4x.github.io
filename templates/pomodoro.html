@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center mb-4">
+        <h1>Méthode Pomodoro</h1>
+        <p class="lead">Travailler avec focus, se reposer avec intention</p>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <!-- Timer Display -->
+        <div class="card mb-4">
+            <div class="card-body text-center py-5">
+                <div class="timer-display" id="timer">25:00</div>
+                <div class="mt-3">
+                    <span class="badge bg-secondary" id="sessionType">Session de travail</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Configuration de la session</h5>
+                
+                <!-- Method Selection -->
+                <div class="mb-4">
+                    <label class="form-label">Choisissez une méthode :</label>
+                    <div class="row" id="methodSelection">
+                        {% for methode in methodes %}
+                        <div class="col-md-6 mb-2">
+                            <div class="card method-card" data-method-id="{{ methode.id }}">
+                                <div class="card-body">
+                                    <h6>{{ methode.nom }}</h6>
+                                    <small class="text-muted">
+                                        {{ methode.duree_session }}min travail / {{ methode.duree_pause }}min pause
+                                    </small>
+                                    <p class="mt-2 small">{{ methode.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <button class="btn btn-success btn-lg" id="startBtn" disabled>
+                        <i class="bi bi-play-circle"></i> Démarrer la Session
+                    </button>
+                    <button class="btn btn-warning btn-lg" id="pauseBtn" disabled>
+                        <i class="bi bi-pause-circle"></i> Pause
+                    </button>
+                    <button class="btn btn-danger btn-lg" id="stopBtn" disabled>
+                        <i class="bi bi-stop-circle"></i> Arrêter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let selectedMethodId = null;
+let currentTimer = null;
+let isWorkSession = true;
+let timeLeft = 0;
+
+// Method selection
+document.querySelectorAll('.method-card').forEach(card => {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        selectedMethodId = this.dataset.methodId;
+        document.getElementById('startBtn').disabled = false;
+    });
+});
+
+// Timer functions
+function startTimer() {
+    // Implementation du timer Pomodoro
+    console.log("Démarrage de la session avec la méthode:", selectedMethodId);
+}
+
+document.getElementById('startBtn').addEventListener('click', startTimer);
+</script>
+{% endblock %}
