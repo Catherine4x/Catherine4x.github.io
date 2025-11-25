@@ -7,6 +7,20 @@ import json
 app = Flask(__name__)
 app.secret_key = 'votre_cle_secrete_ici'
 
+@app.route('/start_session', methods=['POST'])
+def start_session():
+    """Commencer une session d'apprentissage"""
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Non connecté'})
+    # ... le reste du code reste le même
+
+@app.route('/end_session', methods=['POST'])
+def end_session():
+    """Terminer une session d'apprentissage"""
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Non connecté'})
+    # ... le reste du code reste le même
+
 def get_db_connection():
     """获取数据库连接"""
     conn = sqlite3.connect('learning_management.db')
