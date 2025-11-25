@@ -233,3 +233,16 @@ if __name__ == '__main__':
     init_database()
     
     app.run(debug=True, host='0.0.0.0', port=5000)
+@app.route('/start_session', methods=['POST'])
+def start_session():
+    """Commencer une session d'apprentissage"""
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Non connecté'})
+    # ... le reste du code reste le même
+
+@app.route('/end_session', methods=['POST'])
+def end_session():
+    """Terminer une session d'apprentissage"""
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Non connecté'})
+    # ... le reste du code reste le même
